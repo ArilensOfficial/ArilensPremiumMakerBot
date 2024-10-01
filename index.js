@@ -8,8 +8,8 @@ const client = new Client({
 // Bot hazır olduğunda çalışacak
 client.once('ready', () => {
   console.log('Bot aktif.');
-  console.log('komutlar hatasız çalışıyor.');
-  console.log('prefix hatasız çalışıyor.');
+  console.log('Komutlar hatasız çalışıyor.');
+  console.log('Prefix hatasız çalışıyor.');
 });
 
 // Mesajları dinliyoruz
@@ -96,6 +96,62 @@ client.on('messageCreate', async message => {
       components: [row], // Butonları mesajla birlikte gönder
       ephemeral: true // Gizli mesaj
     });
+
+  // Premium rolü verme komutu
+  } else if (command === 'premium-ver') {
+    const roleId = args[0]; // Argüman olarak rol ID'sini al
+    const member = message.mentions.members.first() || message.member; // Mesajı atan kullanıcıyı veya belirtilen kullanıcıyı al
+
+    // Kullanıcının zaten premium rolü olup olmadığını kontrol et
+    if (member.roles.cache.has(config.roles.premium)) {
+      return message.reply({
+        content: 'Bu kullanıcı zaten premium rolüne sahip!',
+        ephemeral: true // Gizli mesaj
+      });
+    }
+
+    // Kullanıcıya rol ekle
+    const role = message.guild.roles.cache.get(roleId);
+    if (role) {
+      await member.roles.add(role);
+      return message.reply({
+        content: `Başarıyla ${role.name} rolü verildi!`,
+        ephemeral: true // Gizli mesaj
+      });
+    } else {
+      return message.reply({
+        content: 'Geçersiz rol ID\'si!',
+        ephemeral: true // Gizli mesaj
+      });
+    }
+
+  // Free rolü verme komutu
+  } else if (command === 'free-ver') {
+    const roleId = args[0]; // Argüman olarak rol ID'sini al
+    const member = message.mentions.members.first() || message.member; // Mesajı atan kullanıcıyı veya belirtilen kullanıcıyı al
+
+    // Kullanıcının zaten free rolü olup olmadığını kontrol et
+    if (member.roles.cache.has(config.roles.free)) {
+      return message.reply({
+        content: 'Bu kullanıcı zaten free rolüne sahip!',
+        ephemeral: true // Gizli mesaj
+      });
+    }
+
+    // Kullanıcıya rol ekle
+    const role = message.guild.roles.cache.get(roleId);
+    if (role) {
+      await member.roles.add(role);
+      return message.reply({
+        content: `Başarıyla ${role.name} rolü verildi!`,
+        ephemeral: true // Gizli mesaj
+      });
+    } else {
+      return message.reply({
+        content: 'Geçersiz rol ID\'si!',
+        ephemeral: true // Gizli mesaj
+      });
+    }
   }
 });
 
