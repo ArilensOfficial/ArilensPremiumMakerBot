@@ -12,3 +12,10 @@ https://youtube.com/@arilens200?si=talgWt5rBiyWq9i2
 **Glitch**
 **Visual Studio Code**
 **Termux(Önerilen Platform)**
+
+# Yenilikler
+Rol Verme Komutu Eklendi
+!free-ver {free rol idsi} @kullanici
+!premium-ver {premium rol idsi} @kullanici
+
+# By Arilens _Official_
